@@ -1,0 +1,43 @@
+<body>
+  <div class="container">
+    <header>
+      <h1>Roster Management</h1>
+
+      <label class="hide-completed">
+        <input type="checkbox" />
+        Hide Completed Tasks
+      </label>
+
+      {{> loginButtons}}
+
+      {{#if currentUser}}
+        <!-- <form class="new-task"> -->
+          <!-- <input type="text" name="text" placeholder="Type to add new tasks" /> -->
+        <!-- </form> -->
+        <form class="new-card-search">
+          <input type="text" name="text" placeholder="Type to search wikipedia" />
+        </form>
+      {{/if}}
+    </header>
+
+    <ul>
+      <!-- {{#each tasks}} -->
+        <!-- {{> task}} -->
+      <!-- {{/each}} -->
+      {{#if currentCard}}
+        {{> card currentCard}}
+      {{/if}}
+    </ul>
+
+    <h1>Current Roster ({{userRosterCount}})</h1>
+    <ul>
+      <!-- {{#each tasks}} -->
+        <!-- {{> task}} -->
+      <!-- {{/each}} -->
+      {{#each cards}}
+        {{> card}}
+      {{/each}}
+    </ul>
+
+  </div>
+</body>

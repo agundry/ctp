@@ -1,0 +1,11 @@
+<template name="card">
+  <li>
+  	<span><strong>{{title}}</strong></span>
+  	<img src="{{thumbnail}}">
+  	<span>{{description}}</span>
+    <button class="draft">Draft</button>
+    {{#if owner}}
+	    <button class="drop">Drop</button>
+    {{/if}}
+  </li>
+</template>
