@@ -4,6 +4,15 @@ import { check } from 'meteor/check';
 import { HTTP } from 'meteor/http';
 
 export const Cards = new Mongo.Collection('cards');
+Cards.schema = new SimpleSchema({
+	title: {type: String},
+	pageId: {type: Number},
+	description: {type: String},
+	category: {type: String, optional: true},
+	thumbnail: {type: String},
+	owner: {type: String},
+	username: {type: String}
+})
 
 if (Meteor.isServer) {
   // This code only runs on the server
@@ -11,16 +20,6 @@ if (Meteor.isServer) {
     return Cards.find({ owner: this.userId });
   });
   Meteor.methods({
-  // 	newwikisearch: function(term) {
-		// HTTP.get('https://en.wikipedia.org/w/api.php',
-		// 	{ params : { action: "opensearch", format: 'json', search: term, limit: 10} },
-		// 	function (error, result) {
-		// 		if (!error) {
-		//           console.log(result);
-		//         }
-		//     }
-		// );
-  // 	},
   	getCardInfo: function(term) {
   		try {
 			var result = HTTP.get('https://en.wikipedia.org/w/api.php',
@@ -38,7 +37,7 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-	'cards.draft'(title, pageId, description, thumbnail) {
+	'cards.draft'(title, pageId, description, category, thumbnail) {
 		check(title, String);
 		check(pageId, Number);
 		check(description, String);
@@ -49,32 +48,23 @@ Meteor.methods({
 			throw new Meteor.Error('not-authorized');
 		}
 
-		Cards.insert({
+		var new_card = {
 			title,
 			pageId,
 			description,
+			category,
 			thumbnail,
 			owner: this.userId,
 			username:Meteor.users.findOne(this.userId).username,
-		});
+		};
+
+		Cards.schema.validate(new_card);
+
+		Cards.insert(new_card);
 	},
 	'cards.drop'(cardId) {
 		check(cardId, String);
 
 		Cards.remove(cardId);
 	},
-	// 'cards.wikisearch'(term) {
-	// 	console.log(term);
-	// 	console.log("HEYYY");
-
-	// 	// Get value from form element
-	// 	HTTP.get('//en.wikipedia.org/w/api.php',
-	// 		{ params : { action: "opensearch", search: term, limit: 10} },
-	// 		function (error, result) {
-	// 			if (!error) {
-	// 	          console.log(result);
-	// 	        }
-	// 	    }
-	// 	);
-	// },
 });

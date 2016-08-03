@@ -124,3 +124,12 @@ header .hide-completed {
     padding-bottom: 5px;
   }
 }
+
+.drafted_card > * {
+  margin-right: 20px;
+}
+
+.drafted_card_category {
+  background: black;
+  color: white;
+}

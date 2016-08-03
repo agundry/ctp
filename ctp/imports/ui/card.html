@@ -1,11 +1,30 @@
 <template name="card">
-  <li>
+  <li class="drafted_card">
+  	{{#if owner}}
+  		<span class="drafted_card_category">{{category}}</span>
+  	{{/if}}
   	<span><strong>{{title}}</strong></span>
   	<img src="{{thumbnail}}">
   	<span>{{description}}</span>
-    <button class="draft">Draft</button>
     {{#if owner}}
 	    <button class="drop">Drop</button>
+	{{else}}
+		<select name="category" id="category">
+			<option value="NBA Team">NBA Team</option>
+			<option value="MLB Team">MLB Team</option>
+			<option value="NFL Team">NFL Team</option>
+			<option value="NHL Team">NHL Team</option>
+			<option value="College Football Team">College Football</option>
+			<option value="UEFA Team">UEFA Team</option>
+			<option value="Best Picture">Best Picture</option>
+			<option value="Billboard Top 10">Billboard Top 10</option>
+			<option value="National GDP">National GDP</option>
+			<option value="Rotten Tomatoes Rating">Rotten Tomatoes Rating</option>
+			<option value="Stock">Stock</option>
+			<option value="Alcohol Sales">Alcohol Sales</option>
+			<option value="Twitter Handle">Twitter Handle</option>
+		</select>
+	    <button class="draft">Draft</button>
     {{/if}}
   </li>
 </template>

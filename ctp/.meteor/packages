@@ -22,3 +22,4 @@ accounts-ui
 accounts-password
 http
 session
+aldeed:simple-schema
