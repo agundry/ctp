@@ -16,6 +16,7 @@ Cards.schema = new SimpleSchema({
 
 if (Meteor.isServer) {
   // This code only runs on the server
+  var cheerio = Meteor.npmRequire('cheerio');
   Meteor.publish('cards', function cardsPublication() {
     return Cards.find({ owner: this.userId });
   });
@@ -33,6 +34,17 @@ if (Meteor.isServer) {
 			console.log("Error", e);
 		}
   	},
+  	get_nba_standings: function() {
+  		let $ = cheerio.load(Meteor.http.get("http://www.nba.com/standings/team_record_comparison/conferenceNew_Std_Cnf.html?ls=iref:nba:gnav").content);
+  		let current_standings = {}
+  		current_standings['teams'] = $('.team').children('a').map(function(i, el) {
+  			return $(this).text();
+  		}).get();
+  		current_standings['wins'] = $('.team').next().map(function(i, el) {
+  			return $(this).text();
+  		}).get();
+  		return current_standings;
+  	}
   })
 }
 

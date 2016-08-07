@@ -78,6 +78,8 @@ if (Meteor.isClient) {
 		    }
 	    });
 
+	    Meteor.call("get_nba_standings", function(err,result){ console.log(result) } );
+
 	    // Clear form
 	    target.text.value = '';
 	  },
