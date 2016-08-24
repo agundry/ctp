@@ -60,6 +60,11 @@ Meteor.methods({
 			throw new Meteor.Error('not-authorized');
 		}
 
+		let already_drafted = Cards.findOne({pageId: pageId});
+		if (already_drafted) {
+			throw new Meteor.Error(already_drafted.username + ' already has that card')
+		}
+
 		var new_card = {
 			title,
 			pageId,
@@ -73,6 +78,10 @@ Meteor.methods({
 		Cards.schema.validate(new_card);
 
 		Cards.insert(new_card);
+
+		// Move user to bottom waiver spot
+		Meteor.users.update({}, {$inc: {waiver_spot: -1}}, {multi: true});
+		Meteor.users.update(Meteor.userId(), {$set: {waiver_spot: Meteor.users.find({}).count()}});
 	},
 	'cards.drop'(cardId) {
 		check(cardId, String);
