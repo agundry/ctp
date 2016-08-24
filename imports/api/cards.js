@@ -60,6 +60,7 @@ Meteor.methods({
 			throw new Meteor.Error('not-authorized');
 		}
 
+        // Collision detection
 		let already_drafted = Cards.findOne({pageId: pageId});
 		if (already_drafted) {
 			throw new Meteor.Error(already_drafted.username + ' already has that card')
