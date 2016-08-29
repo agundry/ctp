@@ -4,6 +4,7 @@ accounts-ui@1.1.9
 accounts-ui-unstyled@1.1.12
 aldeed:simple-schema@1.5.3
 allow-deny@1.0.5
+amplify@1.0.0
 autoupdate@1.2.11
 babel-compiler@6.8.5
 babel-runtime@0.1.9_1
@@ -69,6 +70,7 @@ reactive-var@1.0.10
 reload@1.1.10
 retry@1.0.8
 routepolicy@1.0.11
+sanjo:jasmine@1.0.1
 service-configuration@1.0.10
 session@1.1.6
 sha@1.0.8
@@ -83,5 +85,7 @@ tracker@1.0.15
 ui@1.0.11
 underscore@1.0.9
 url@1.0.10
+velocity:html-reporter@0.10.1
+velocity:reports@1.0.0
 webapp@1.2.11
 webapp-hashing@1.0.9

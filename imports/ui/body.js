@@ -1,10 +1,8 @@
 import { Template } from 'meteor/templating';
 
-import { Tasks } from '../api/tasks.js';
 import { Cards } from '../api/cards.js';
 
 import './card.js';
-import './task.js';
 import './body.html';
 
 if (Meteor.isClient) {
