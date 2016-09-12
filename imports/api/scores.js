@@ -3,24 +3,6 @@ import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { HTTP } from 'meteor/http';
 
-export const Scores = new Mongo.Collection('scores');
-Scores.schema = new SimpleSchema({
-	username: {type: String},
-	nba_team: {type: Number},
-	nfl_team: {type: Number},
-	nhl_team: {type: Number},
-	mlb_team: {type: Number},
-	best_picture: {type: Number},
-	gdp: {type: Number},
-	billboard: {type: Number},
-	gdp: {type: Number},
-	gdp: {type: Number},
-	gdp: {type: Number},
-	college_football: {type: Number},
-	uefa_team: {type: Number},
-	stock: {type: Number}
-})
-
 if (Meteor.isServer) {
   // This code only runs on the server
   var cheerio = Meteor.npmRequire('cheerio');

@@ -1,7 +1,5 @@
 import { Template } from 'meteor/templating';
 
-import { Cards } from '../api/cards.js';
-
 import './card.js';
 import './body.html';
 
