@@ -29,3 +29,5 @@ meteorhacks:npm
 npm-container
 sanjo:jasmine
 velocity:html-reporter
+iron:router
+twbs:bootstrap

@@ -1,14 +1,7 @@
-<body>
+<template name="roster">
   <div class="container">
     <header>
       <h1>Roster Management</h1>
-
-      <label class="hide-completed">
-        <input type="checkbox" />
-        Hide Completed Tasks
-      </label>
-
-      {{> loginButtons}}
 
       {{#if currentUser}}
         <!-- <form class="new-task"> -->
@@ -40,4 +33,4 @@
     </ul>
 
   </div>
-</body>
+</template>

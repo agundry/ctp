@@ -1,16 +1,16 @@
 import { Template } from 'meteor/templating';
 
 import './card.js';
-import './body.html';
+import './roster.html';
 
 if (Meteor.isClient) {
-	Template.body.onCreated(function bodyOnCreated() {
+	Template.roster.onCreated(function bodyOnCreated() {
 	  this.state = new ReactiveDict();
 	  Meteor.subscribe('tasks');
 	  Meteor.subscribe('cards');
 	});
 
-	Template.body.helpers({
+	Template.roster.helpers({
 		tasks() {
 		    const instance = Template.instance();
 		    if (instance.state.get('hideCompleted')) {
@@ -37,7 +37,7 @@ if (Meteor.isClient) {
 		},
 	});
 
-	Template.body.events({
+	Template.roster.events({
 	  'submit .new-task'(event) {
 	  	console.log(event);
 	    // Prevent default browser form submit

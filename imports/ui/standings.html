@@ -1,0 +1,15 @@
+<template name="standings">
+  <div class="container">
+    <header>
+      <h1>Standings</h1>
+
+      {{#if currentUser}}
+	    <ul>
+	      {{#each userList}}
+	        {{> user_standing}}
+	      {{/each}}
+	    </ul>
+      {{/if}}
+    </header>
+  </div>
+</template>
