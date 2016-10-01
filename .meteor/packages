@@ -31,3 +31,4 @@ sanjo:jasmine
 velocity:html-reporter
 iron:router
 twbs:bootstrap
+react
