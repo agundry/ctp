@@ -9,6 +9,9 @@ class App extends React.Component {
         return (
             <div className="app-container">
                 Hello, world.
+                <main className="container">
+                    {this.props.content}
+                </main>
             </div>
         );
     }

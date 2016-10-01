@@ -5,6 +5,7 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "meteor-node-stubs": "~0.2.0",
     "react": "^15.3.2",
     "react-addons-create-fragment": "^15.3.2",
@@ -15,6 +16,7 @@
     "react-addons-test-utils": "^15.3.2",
     "react-addons-transition-group": "^15.3.2",
     "react-addons-update": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "react-mounter": "^1.2.0"
   }
 }
