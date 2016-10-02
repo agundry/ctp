@@ -46,10 +46,6 @@ class Register extends React.Component {
     }
 }
 
-Register.propTypes = {
-    submitAction: React.PropTypes.func.isRequired,
-};
-
 Register.defaultProps = {
     loginLink: <p>Already have an account? <a href="/login">Sign In</a></p>,
 };

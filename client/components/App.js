@@ -1,6 +1,8 @@
 import React from 'react';
 import AppHeader from './layout/AppHeader';
 import Dropdown from './navigation/Dropdown';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
 
 class App extends React.Component {
     constructor(props) {
@@ -38,6 +40,7 @@ class App extends React.Component {
                 <main className="container">
                     {this.props.content}
                 </main>
+                <Alert stack={{limit: 3}} timeout={2000} />
             </div>
         :
             <div className="app-container">

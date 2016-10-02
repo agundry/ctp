@@ -2,11 +2,11 @@
  * Created by austingundry on 10/1/16.
  */
 
-import App from './components/App';
 import Login from './views/Login';
 import Roster from './views/Roster';
 import Register from './views/Register';
 import { mount } from 'react-mounter';
+import Alert from 'react-s-alert';
 
 FlowRouter.route('/', {
     name: 'home',
@@ -40,7 +40,7 @@ FlowRouter.route('/logout', {
     action: function() {
         Meteor.logout(function(){
             FlowRouter.go('home');
-            sAlert.info("You've been signed out.", {effect: 'stackslide', position: 'top-left', timeout: 2000,});
+            Alert.info("You've been signed out.", {effect: 'stackslide', position: 'top-right'});
         });
     }
 });
