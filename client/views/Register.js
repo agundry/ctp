@@ -1,4 +1,5 @@
 import React from 'react';
+import {Meteor} from 'meteor/meteor';
 import EmailPasswordForm from '../components/forms/EmailPasswordForm';
 
 class Register extends React.Component {
@@ -16,7 +17,8 @@ class Register extends React.Component {
         Accounts.createUser(
             {
                 email: email,
-                password: password
+                password: password,
+                waiver_spot: Meteor.users.find().count() + 1
             },
             function(error) {
                 if (error) {
@@ -46,10 +48,10 @@ class Register extends React.Component {
 
 Register.propTypes = {
     submitAction: React.PropTypes.func.isRequired,
-}
+};
 
 Register.defaultProps = {
     loginLink: <p>Already have an account? <a href="/login">Sign In</a></p>,
-}
+};
 
 export default Register;

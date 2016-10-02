@@ -32,3 +32,5 @@ react
 kadira:flow-router
 shell-server
 msavin:mongol
+react-meteor-data
+juliancwirko:s-alert-stackslide

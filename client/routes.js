@@ -11,7 +11,7 @@ import { mount } from 'react-mounter';
 FlowRouter.route('/', {
     name: 'home',
     action: function() {
-        mount(App, {
+        mount(AppContainer, {
             content: <Roster />
         });
     }
@@ -20,7 +20,7 @@ FlowRouter.route('/', {
 FlowRouter.route('/login', {
     name: 'login',
     action: function() {
-        mount(App, {
+        mount(AppContainer, {
             content: <Login />
         });
     }
@@ -29,8 +29,18 @@ FlowRouter.route('/login', {
 FlowRouter.route('/register', {
     name: 'register',
     action: function() {
-        mount(App, {
+        mount(AppContainer, {
             content: <Register />
+        });
+    }
+});
+
+FlowRouter.route('/logout', {
+    name: 'logout',
+    action: function() {
+        Meteor.logout(function(){
+            FlowRouter.go('home');
+            sAlert.info("You've been signed out.", {effect: 'stackslide', position: 'top-left', timeout: 2000,});
         });
     }
 });
