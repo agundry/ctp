@@ -10,19 +10,19 @@ if (Meteor.isServer) {
     return Cards.find({ owner: this.userId });
   });
   Meteor.methods({
-  	getCardInfo: function(term) {
-  		try {
-			var result = HTTP.get('https://en.wikipedia.org/w/api.php',
-				{ params : { action: "query", formatversion: 2, prop: 'pageimages|pageterms', titles: term, format: 'json', pilimit: 3} });
-			let query_set = JSON.parse(result.content);
-			let top_item = query_set.query.pages[0];
-			let return_set = {pageId: top_item.pageid, title: top_item.title,
-				thumbnail: top_item.thumbnail.source, description: top_item.terms.description[0]};
-			return return_set;
-		} catch(e) {
-			console.log("Error", e);
-		}
-  	},
+  	// '/cards/search': function(term) {
+  	// 	try {
+		// 	var result = HTTP.get('https://en.wikipedia.org/w/api.php',
+		// 		{ params : { action: "query", formatversion: 2, prop: 'pageimages|pageterms', titles: term, format: 'json', pilimit: 3} });
+		// 	let query_set = JSON.parse(result.content);
+		// 	let top_item = query_set.query.pages[0];
+		// 	let return_set = {pageId: top_item.pageid, title: top_item.title,
+		// 		thumbnail: top_item.thumbnail.source, description: top_item.terms.description[0]};
+		// 	return return_set;
+		// } catch(e) {
+		// 	console.log("Error", e);
+		// }
+  	// },
   	get_nba_standings: function() {
   		let $ = cheerio.load(Meteor.http.get("http://www.nba.com/standings/team_record_comparison/conferenceNew_Std_Cnf.html?ls=iref:nba:gnav").content);
   		let current_standings = {}
