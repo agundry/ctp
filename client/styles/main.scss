@@ -92,3 +92,20 @@ li.private {
   background: black;
   color: white;
 }
+
+.SearchBar {
+  display: flex;
+  &-field {
+    margin-left: 1rem;
+    flex: 1 1 auto;
+  }
+  &-near,
+  &-clear {
+    display: inline;
+    border-left: solid 1px #E0E0E0;
+    height: 48px;
+  }
+  &-near {
+    border-right: solid 1px #E0E0E0;
+  }
+}

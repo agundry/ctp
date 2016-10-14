@@ -25,6 +25,7 @@ class SingleFieldSubmit extends React.Component {
         return (
             <form className="form-inline" onSubmit={this.handleSubmit}>
                 <div className="form-group">
+                    <label>{this.props.labelText}</label>
                     <input
                         className="form-control full-width"
                         type="text"
@@ -40,12 +41,14 @@ class SingleFieldSubmit extends React.Component {
 
 
 SingleFieldSubmit.propTypes = {
-    handleInput: React.PropTypes.func.isRequired
+    handleInput: React.PropTypes.func.isRequired,
+    labelText: React.PropTypes.string
 };
 
 SingleFieldSubmit.defaultProps = {
     inputValue:  "",
-    placeholder: "New..."
+    placeholder: "New...",
+    labelText: "",
 };
 
 

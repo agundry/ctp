@@ -3,6 +3,7 @@ import AppHeader from './layout/AppHeader';
 import Dropdown from './navigation/Dropdown';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends React.Component {
     constructor(props) {
@@ -35,17 +36,21 @@ class App extends React.Component {
     render() {
         return this.props.subReady?
 
-            <div className="app-container">
-                <AppHeader appTitle="Chicken Tender Party" userNav={this.showUserNav()}/>
-                <main className="container">
-                    {this.props.content}
-                </main>
-                <Alert stack={{limit: 3}} timeout={2000} />
-            </div>
+            <MuiThemeProvider>
+                <div className="app-container">
+                    <AppHeader appTitle="Chicken Tender Party" userNav={this.showUserNav()}/>
+                    <main className="container">
+                        {this.props.content}
+                    </main>
+                    <Alert stack={{limit: 3}} timeout={2000} />
+                </div>
+            </MuiThemeProvider>
         :
-            <div className="app-container">
-                Loading...
-            </div>
+            <MuiThemeProvider>
+                <div className="app-container">
+                    Loading...
+                </div>
+            </MuiThemeProvider>
         ;
     }
 }
