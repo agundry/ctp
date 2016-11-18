@@ -65,4 +65,8 @@ Meteor.methods({
 
         return "success"
     },
+    '/cards/drop'(cardId) {
+        check(cardId, String);
+        Cards.remove(cardId);
+    },
 });

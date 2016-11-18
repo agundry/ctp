@@ -5,6 +5,7 @@
 # but you can also edit it by hand.
 
 meteor-base@1.0.4             # Packages every Meteor app needs to have
+msavin:mongol
 mobile-experience@1.0.4       # Packages for a great mobile UX
 mongo@1.1.12                   # The database Meteor supports right now
 blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
@@ -31,6 +32,5 @@ twbs:bootstrap
 react
 kadira:flow-router
 shell-server
-msavin:mongol
 react-meteor-data
 fourseven:scss

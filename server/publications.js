@@ -12,9 +12,9 @@ Meteor.publish("userData", function () {
     }
 });
 
-Meteor.publish("userCards", function () {
+Meteor.publish("cards", function () {
     if (this.userId) {
-        return Cards.find({ owner: this.userId });
+        return Cards.find({});
     } else {
         this.ready();
     }

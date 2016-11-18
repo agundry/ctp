@@ -12,7 +12,7 @@ FlowRouter.route('/', {
     name: 'home',
     action: function() {
         mount(AppContainer, {
-            content: <Roster />
+            content: <RosterContainer />
         });
     }
 });
