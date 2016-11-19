@@ -1,15 +1,26 @@
 import React from 'react';
-import SingleFieldSubmit from '../components/forms/SingleFieldSubmit';
-// import { Meteor } from 'meteor/meteor';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
 import SearchBar from '../components/forms/SearchBar';
 import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
 import AddShoppingCart from 'material-ui/svg-icons/action/add-shopping-cart';
-import Delete from 'material-ui/svg-icons/action/delete';
+import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+
+const iconButtonElement = (
+    <IconButton
+        touch={true}
+        tooltip="more"
+        tooltipPosition="bottom-left"
+    >
+        <MoreVertIcon color={grey400} />
+    </IconButton>
+);
 
 const CardEntry = (props) => {
     dropCard = (cardId) => {
@@ -27,15 +38,17 @@ const CardEntry = (props) => {
             primaryText={props.title}
             secondaryText={
                 <p>
-                    {props.description}<br />
+                    {props.category + ' • ' + props.points_earned}
+                    <br/>
+                    {props.description}
                 </p>
             }
             secondaryTextLines={2}
             leftAvatar={<Avatar src={props.thumbnail} size={50}/>}
             rightIconButton={
-                <IconButton onClick={() => dropCard(props._id)} tooltip="Drop">
-                    <Delete hoverColor="gray"/>
-                </IconButton>
+                <IconMenu iconButtonElement={iconButtonElement}>
+                    <MenuItem onClick={() => dropCard(props._id)}>Delete</MenuItem>
+                </IconMenu>
             }
         />
     );
@@ -48,7 +61,7 @@ class Roster extends React.Component {
         this.state = {
             searched_card: null,
             isLoading: false,
-            selectedCategory: null,
+            selectedCategory: "NBA Team",
         };
     }
 
@@ -69,6 +82,7 @@ class Roster extends React.Component {
 
     draftCard(title, pageId, description, thumbnail) {
         let card = this.state.searched_card;
+        console.log(this.state);
         Meteor.call('/cards/draft', card.title, card.pageId, card.description, this.state.selectedCategory, card.thumbnail, function(error, result) {
             if (error) {
                 console.log(error);
@@ -82,12 +96,17 @@ class Roster extends React.Component {
         this.setState({
             searched_card: null
         });
+        Meteor.call('/scores/nba', function (error, result) {
+            if (error) {
+                console.log(error);
+            }
+        });
     }
 
     render() {
         var select_category=
             <select name="category" id="category" onChange={this.handleChange.bind(this)}>
-                <option value="NBA Team">NBA Team</option>
+                <option selected value="NBA Team">NBA Team</option>
                 <option value="MLB Team">MLB Team</option>
                 <option value="NFL Team">NFL Team</option>
                 <option value="NHL Team">NHL Team</option>

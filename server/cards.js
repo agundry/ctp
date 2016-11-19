@@ -32,9 +32,11 @@ Meteor.methods({
     '/cards/draft': function (title, pageId, description, category, thumbnail) {
         check(title, String);
         check(pageId, Number);
+        check(category, String);
         check(description, String);
         check(thumbnail, String);
 
+        console.log(category);
         // Check that user is logged in
         if (! Meteor.user()) {
             throw new Meteor.Error('not-authorized');
