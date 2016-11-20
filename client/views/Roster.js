@@ -96,6 +96,11 @@ class Roster extends React.Component {
         this.setState({
             searched_card: null
         });
+        Meteor.call('/scores/nfl', function (error, result) {
+            if (error) {
+                console.log(error);
+            }
+        });
         Meteor.call('/scores/nba', function (error, result) {
             if (error) {
                 console.log(error);
