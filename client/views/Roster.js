@@ -101,6 +101,11 @@ class Roster extends React.Component {
                 console.log(error);
             }
         });
+        Meteor.call('/scores/nhl', function (error, result) {
+            if (error) {
+                console.log(error);
+            }
+        });
         Meteor.call('/scores/nba', function (error, result) {
             if (error) {
                 console.log(error);

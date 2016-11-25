@@ -22,7 +22,7 @@ class AppHeader extends React.Component {
 
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul className="nav navbar-nav">
-                            <li className="active"><a href="#">Link <span className="sr-only">(current)</span></a></li>
+                            <li className="active"><a href="#">Roster <span className="sr-only">(current)</span></a></li>
                             <li><a href="standings">Standings</a></li>
                             <li className="dropdown">
                                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button"
