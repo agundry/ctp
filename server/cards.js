@@ -62,7 +62,7 @@ Meteor.methods({
         Cards.insert(new_card);
 
         // Move user to bottom waiver spot
-        Meteor.users.update({}, {$inc: {waiver_spot: -1}}, {multi: true});
+        Meteor.users.update({waiver_spot: { $gt: Meteor.user().waiver_spot }}, {$inc: {waiver_spot: -1}}, {multi: true});
         Meteor.users.update(Meteor.userId(), {$set: {waiver_spot: Meteor.users.find({}).count()}});
 
         return "success"

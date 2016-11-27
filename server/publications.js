@@ -12,6 +12,14 @@ Meteor.publish("userData", function () {
     }
 });
 
+Meteor.publish("allUsers", function () {
+    if (this.userId) {
+        return Meteor.users.find({});
+    } else {
+        this.ready();
+    }
+});
+
 Meteor.publish("cards", function () {
     if (this.userId) {
         return Cards.find({});

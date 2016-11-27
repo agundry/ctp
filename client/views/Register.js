@@ -18,7 +18,8 @@ class Register extends React.Component {
             {
                 email: email,
                 password: password,
-                waiver_spot: Meteor.users.find().count() + 1
+                waiver_spot: Meteor.users.find().count() + 1,
+                points: 0
             },
             function(error) {
                 if (error) {

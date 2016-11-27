@@ -8,8 +8,6 @@ import NearMe from 'material-ui/svg-icons/maps/near-me';
 import Paper from 'material-ui/Paper';
 import Search from 'material-ui/svg-icons/action/search';
 import TextField from 'material-ui/TextField';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
 
 class SearchBar extends React.Component {
     constructor(props) {

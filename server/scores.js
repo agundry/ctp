@@ -6,6 +6,18 @@ import { check } from 'meteor/check';
 
 const cheerio = Meteor.npmRequire('cheerio');
 Meteor.methods({
+	'/scores/roster': function () {
+	    let users = Meteor.users.find({}).fetch();
+
+		users.forEach(function (user) {
+			let user_cards = Cards.find({owner: user._id}).fetch();
+            var new_score = 0;
+            user_cards.forEach(function (card) {
+            	new_score += parseInt(card.points_earned);
+			});
+			Meteor.users.update(user._id, {$set: {points: new_score}});
+		});
+	},
     '/scores/nba': function () {
   		let $ = cheerio.load(Meteor.http.get("http://www.espn.com/nba/standings").content);
   		let current_standings = {};
@@ -90,6 +102,5 @@ Meteor.methods({
 			team_wins = current_standings_dict[NHL_TEAMS_WIKI_TEAMS_MAPPER[card.title]];
 			Cards.update({_id: card._id}, {$set: {points_earned: team_wins}});
 		});
-
 	}
 });

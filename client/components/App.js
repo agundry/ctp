@@ -4,6 +4,8 @@ import Dropdown from './navigation/Dropdown';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 class App extends React.Component {
     constructor(props) {

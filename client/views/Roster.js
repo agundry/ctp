@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import {List, ListItem} from 'material-ui/List';
 import SearchBar from '../components/forms/SearchBar';
+import StandingsBar from '../views/StandingsBar';
 import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
 import AddShoppingCart from 'material-ui/svg-icons/action/add-shopping-cart';
@@ -62,11 +63,17 @@ class Roster extends React.Component {
             searched_card: null,
             isLoading: false,
             selectedCategory: "NBA Team",
+            selected_user: Meteor.user(),
+            selected_user_cards: Cards.find({owner: Meteor.userId()}),
         };
     }
 
     handleChange(e) {
         this.setState({selectedCategory: e.target.value});
+    }
+
+    showUserTeam(user_id) {
+        this.setState({selected_user_id: user_id, selected_user_cards: Cards.find({owner: user_id})});
     }
 
     searchWiki(inputValue) {
@@ -95,6 +102,11 @@ class Roster extends React.Component {
     clearSearch() {
         this.setState({
             searched_card: null
+        });
+        Meteor.call('/scores/roster', function (error, result) {
+            if (error) {
+                console.log(error);
+            }
         });
         Meteor.call('/scores/nfl', function (error, result) {
             if (error) {
@@ -132,8 +144,10 @@ class Roster extends React.Component {
             </select>;
 
         return (
+
             <div className="row">
-                <div className="col-md-6 col-md-offset-3">
+                <StandingsBar users={this.props.users} onChange={this.showUserTeam.bind(this)} selectedUser={this.state.selected_user}/>
+                <div className="col-md-6">
                     <h1>Search</h1>
                     <SearchBar isLoading={this.state.isLoading} onChange={this.searchWiki.bind(this)} clearSearch={this.clearSearch.bind(this)} />
                     {this.state.searched_card &&
@@ -159,10 +173,10 @@ class Roster extends React.Component {
                         </Paper>
                     }
                     <h1 className="TeamHeader">Your Team</h1>
-                    {this.props.cards &&
+                    {this.state.selected_user_cards &&
                         <Paper className="Team">
                             <List>
-                                {this.props.cards.map((item, i, items) => {
+                                {this.state.selected_user_cards.map((item, i, items) => {
                                     return (
                                         <div key={item._id}>
                                             <CardEntry {...item}/>
@@ -180,6 +194,7 @@ class Roster extends React.Component {
 }
 Roster.propTypes = {
     cards: React.PropTypes.array,
+    users: React.PropTypes.array,
     loading: React.PropTypes.bool,
     cardsExist: React.PropTypes.bool,
 };
