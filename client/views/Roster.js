@@ -8,6 +8,7 @@ import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
 import AddShoppingCart from 'material-ui/svg-icons/action/add-shopping-cart';
 import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+import Alert from 'react-s-alert';
 
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
@@ -81,7 +82,6 @@ class Roster extends React.Component {
             if (error) {
                 console.log(error);
             } else {
-                console.log(result);
                 this.setState({searched_card:result});
             }
         }.bind(this));
@@ -93,6 +93,7 @@ class Roster extends React.Component {
         Meteor.call('/cards/draft', card.title, card.pageId, card.description, this.state.selectedCategory, card.thumbnail, function(error, result) {
             if (error) {
                 console.log(error);
+                Alert.error(error.error, {position: 'top-right', timeout: 3000});
             } else {
                 console.log(result);
             }
@@ -102,11 +103,6 @@ class Roster extends React.Component {
     clearSearch() {
         this.setState({
             searched_card: null
-        });
-        Meteor.call('/scores/roster', function (error, result) {
-            if (error) {
-                console.log(error);
-            }
         });
         Meteor.call('/scores/nfl', function (error, result) {
             if (error) {
@@ -119,6 +115,11 @@ class Roster extends React.Component {
             }
         });
         Meteor.call('/scores/nba', function (error, result) {
+            if (error) {
+                console.log(error);
+            }
+        });
+        Meteor.call('/scores/roster', function (error, result) {
             if (error) {
                 console.log(error);
             }
@@ -146,7 +147,7 @@ class Roster extends React.Component {
         return (
 
             <div className="row">
-                <StandingsBar users={this.props.users} onChange={this.showUserTeam.bind(this)} selectedUser={this.state.selected_user}/>
+                <StandingsBarContainer onChange={this.showUserTeam.bind(this)} selectedUser={this.state.selected_user}/>
                 <div className="col-md-6">
                     <h1>Search</h1>
                     <SearchBar isLoading={this.state.isLoading} onChange={this.searchWiki.bind(this)} clearSearch={this.clearSearch.bind(this)} />
@@ -194,7 +195,6 @@ class Roster extends React.Component {
 }
 Roster.propTypes = {
     cards: React.PropTypes.array,
-    users: React.PropTypes.array,
     loading: React.PropTypes.bool,
     cardsExist: React.PropTypes.bool,
 };

@@ -3,6 +3,8 @@
  */
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
+import Cards from '../lib/collections/cards_collection';
+import Scores from '../lib/collections/scores_collection';
 
 Meteor.methods({
     '/cards/search': function (term) {
@@ -36,7 +38,6 @@ Meteor.methods({
         check(description, String);
         check(thumbnail, String);
 
-        console.log(category);
         // Check that user is logged in
         if (! Meteor.user()) {
             throw new Meteor.Error('not-authorized');
@@ -45,7 +46,8 @@ Meteor.methods({
         // Collision detection
         let already_drafted = Cards.findOne({pageId: pageId});
         if (already_drafted) {
-            throw new Meteor.Error(already_drafted.username + ' already has that card')
+            let current_owner = Meteor.users.findOne({_id: already_drafted.owner});
+            throw new Meteor.Error(current_owner.emails[0].address + ' already has that card')
         }
 
         var new_card = {
@@ -55,6 +57,7 @@ Meteor.methods({
             category,
             thumbnail,
             owner: Meteor.userId(),
+            points_when_acquired: null,
         };
 
         Cards.schema.validate(new_card);
@@ -69,6 +72,31 @@ Meteor.methods({
     },
     '/cards/drop'(cardId) {
         check(cardId, String);
+        // Update scoring
+        let card = Cards.findOne({_id: cardId});
+        let user_score = Scores.findOne({user: card.owner});
+        let new_points = card.points_earned - card.points_when_acquired;
+        updateScoreField(user_score, card.category, card.points_earned - card.points_when_acquired);
+
         Cards.remove(cardId);
     },
 });
+
+updateScoreField = (score_object, category, points) => {
+    // using this pattern allows for the increment field to be set dynamically
+    let score_modifier = { $inc: {} };
+    switch (category) {
+        case "NBA Team":
+            score_modifier.$inc['nba'] = points;
+            break;
+        case "NFL Team":
+            score_modifier.$inc['nfl'] = points;
+            break;
+        case "NHL Team":
+            score_modifier.$inc['nhl'] = points;
+            break;
+        default:
+            break;
+    }
+    Scores.update({user: score_object.user}, score_modifier);
+};

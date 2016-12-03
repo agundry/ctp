@@ -40,7 +40,7 @@ FlowRouter.route('/logout', {
     action: function() {
         Meteor.logout(function(){
             FlowRouter.go('home');
-            Alert.info("You've been signed out.", {effect: 'stackslide', position: 'top-right'});
+            Alert.info("You've been signed out.", {effect: 'stackslide', position: 'top-right', timeout: 3000});
         });
     }
 });
