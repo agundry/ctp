@@ -96,6 +96,8 @@ updateScoreField = (score_object, category, points) => {
             score_modifier.$inc['nhl'] = points;
             break;
         default:
+            // If not valid category, just pass in nba and 0 because we need to pass something
+            score_modifier.$inc['nba'] = 0;
             break;
     }
     Scores.update({user: score_object.user}, score_modifier);

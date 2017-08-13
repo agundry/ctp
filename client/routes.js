@@ -3,7 +3,6 @@
  */
 
 import Login from './views/Login';
-import Roster from './views/Roster';
 import Register from './views/Register';
 import { mount } from 'react-mounter';
 import Alert from 'react-s-alert';
@@ -13,6 +12,15 @@ FlowRouter.route('/', {
     action: function() {
         mount(AppContainer, {
             content: <RosterContainer />
+        });
+    }
+});
+
+FlowRouter.route('/leagues', {
+    name: 'leagues',
+    action: function() {
+        mount(AppContainer, {
+            content: <LeagueContainer />
         });
     }
 });

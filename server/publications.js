@@ -36,3 +36,13 @@ Meteor.publish("recordedScores", function () {
         this.ready();
     }
 });
+
+Meteor.publish("leagues", function () {
+    if (this.userId) {
+        // user_league_ids = UserLeagues.find({user_id: this.user_id});
+        // return Leagues.find({_id: {$in: user_league_ids}});
+        return Leagues.find({});
+    } else {
+        this.ready();
+    }
+});

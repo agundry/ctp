@@ -129,7 +129,7 @@ class Roster extends React.Component {
     render() {
         var select_category=
             <select name="category" id="category" onChange={this.handleChange.bind(this)}>
-                <option selected value="NBA Team">NBA Team</option>
+                <option defaultValue value="NBA Team">NBA Team</option>
                 <option value="MLB Team">MLB Team</option>
                 <option value="NFL Team">NFL Team</option>
                 <option value="NHL Team">NHL Team</option>
@@ -147,7 +147,10 @@ class Roster extends React.Component {
         return (
 
             <div className="row">
-                <StandingsBarContainer onChange={this.showUserTeam.bind(this)} selectedUser={this.state.selected_user}/>
+                {/* If there is a selected_user, show standings bar*/}
+                {this.state.selected_user &&
+                    <StandingsBarContainer onChange={this.showUserTeam.bind(this)} selectedUser={this.state.selected_user}/>
+                }
                 <div className="col-md-6">
                     <h1>Search</h1>
                     <SearchBar isLoading={this.state.isLoading} onChange={this.searchWiki.bind(this)} clearSearch={this.clearSearch.bind(this)} />
